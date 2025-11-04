@@ -1,55 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Manajemen Pengurus</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
     <nav>
-        <a href="index.html">Laporan Kehadiran</a>
-        <a href="kegiatan.html">Manajemen Kegiatan</a>
-        <a href="mahasiswa.html" class="active">Manajemen Pengurus</a>
+      <a href="index.html">Laporan Kehadiran</a>
+      <a href="kegiatan.html">Manajemen Kegiatan</a>
+      <a href="mahasiswa.html" class="active">Manajemen Pengurus</a>
     </nav>
 
     <main>
-        <h1>Manajemen Pengurus</h1>
+      <h1>Manajemen Pengurus</h1>
 
-        <div class="card">
-            <h2>Daftarkan Pengurus Baru</h2>
-            <form id="form-buat-mahasiswa">
-                <label for="nama">Nama Pengurus:</label>
-                <input type="text" id="nama" required>
-                
-                <label for="nim">NIM (Nomor Induk):</label>
-                <input type_text" id="nim" required>
+      <div class="card">
+        <h2>Daftarkan Pengurus Baru</h2>
+        <form id="form-buat-mahasiswa">
+          <label for="nama">Nama Pengurus:</label>
+          <input type="text" id="nama" required />
 
-                <label for="rfid_uid">UID Kartu RFID:</label>
-                <input type="text" id="rfid_uid" placeholder="Contoh: AA-BB-CC-01" required>
-                
-                <button type="submit">Daftarkan</button>
-            </form>
-        </div>
+          <label for="nim">NIM (Nomor Induk):</label>
+          <input type_text" id="nim" required>
 
-        <div class="card">
-            <h2>Daftar Pengurus Terdaftar</h2>
-            <table id="tabel-mahasiswa">
-                <thead>
-                    <tr>
-                        <th>Nama</th>
-                        <th>NIM</th>
-                        <th>UID RFID</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody id="body-tabel-mahasiswa">
-                    </tbody>
-            </table>
-        </div>
+          <label for="rfid_uid">UID Kartu RFID:</label>
+          <input
+            type="text"
+            id="rfid_uid"
+            placeholder="Contoh: AA-BB-CC-01"
+            required
+          />
+
+          <button type="submit">Daftarkan</button>
+        </form>
+      </div>
+
+      <div class="card">
+        <h2>Daftar Pengurus Terdaftar</h2>
+        <table id="tabel-mahasiswa">
+          <thead>
+            <tr>
+              <th>Nama</th>
+              <th>NIM</th>
+              <th>UID RFID</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="body-tabel-mahasiswa"></tbody>
+        </table>
+      </div>
     </main>
 
+    <div id="edit-modal" class="modal-overlay" style="display: none">
+      <div class="modal-content">
+        <span class="modal-close" id="modal-close-btn">&times;</span>
+        <h2>Edit Data Mahasiswa</h2>
+
+        <form id="form-edit-mahasiswa">
+          <input type="hidden" id="edit-mhs-id" />
+
+          <label for="edit-nama">Nama Mahasiswa:</label>
+          <input type="text" id="edit-nama" required />
+
+          <label for="edit-nim">NIM:</label>
+          <input type="text" id="edit-nim" required />
+
+          <label for="edit-rfid_uid">UID Kartu RFID:</label>
+          <input type="text" id="edit-rfid_uid" required />
+
+          <button type="submit">Simpan Perubahan</button>
+        </form>
+      </div>
+    </div>
+
     <script src="js/mahasiswa.js"></script>
-</body>
+  </body>
 </html>

@@ -1,7 +1,5 @@
-// URL API Backend Anda
 const API_URL = 'http://localhost:3000/api';
 
-// Ambil elemen dari HTML
 const selectKegiatan = document.getElementById('pilih-kegiatan');
 const tbodyLaporan = document.getElementById('body-tabel-laporan');
 const btnRefresh = document.getElementById('btn-refresh');
@@ -9,9 +7,6 @@ const formTambahPeserta = document.getElementById('form-tambah-peserta');
 const selectMahasiswa = document.getElementById('pilih-mahasiswa');
 const btnTambahPeserta = document.getElementById('btn-tambah-peserta');
 
-/**
- * Fungsi untuk memuat semua kegiatan ke dalam dropdown <select>
- */
 async function loadKegiatanDropdown() {
     try {
         const response = await fetch(`${API_URL}/kegiatan`);
@@ -19,26 +14,24 @@ async function loadKegiatanDropdown() {
         
         const kegiatanList = await response.json();
 
-        selectKegiatan.innerHTML = '<option value="">-- Pilih Kegiatan --</option>'; // Opsi default
+        selectKegiatan.innerHTML = '<option value="">-- Pilih Kegiatan --</option>'; 
 
         kegiatanList.forEach(kegiatan => {
             const option = document.createElement('option');
             option.value = kegiatan.id;
             option.textContent = kegiatan.nama_kegiatan;
-            // Jika statusnya aktif, tambahkan tanda
             if (kegiatan.status === 'aktif') {
                 option.textContent += ' (AKTIF)';
             }
             selectKegiatan.appendChild(option);
         });
 
-        // Cek apakah ada parameter ID di URL (dari halaman kegiatan.html)
         const urlParams = new URLSearchParams(window.location.search);
         const kegiatanIdFromUrl = urlParams.get('kegiatan_id');
         
         if (kegiatanIdFromUrl) {
-            selectKegiatan.value = kegiatanIdFromUrl; // Set dropdown ke ID tsb
-            loadLaporanKehadiran(kegiatanIdFromUrl); // Langsung muat laporannya
+            selectKegiatan.value = kegiatanIdFromUrl; 
+            loadLaporanKehadiran(kegiatanIdFromUrl); 
         }
 
     } catch (error) {
@@ -47,18 +40,13 @@ async function loadKegiatanDropdown() {
     }
 }
 
-/**
- * Fungsi untuk memuat laporan kehadiran berdasarkan ID kegiatan yang dipilih
- */
 async function loadLaporanKehadiran(kegiatan_id) {
-    // Cek apakah kegiatan_id ada
     if (!kegiatan_id) {
         tbodyLaporan.innerHTML = '<tr><td colspan="5" style="text-align: center;">Pilih kegiatan untuk melihat laporan.</td></tr>';
-        formTambahPeserta.style.display = 'none'; // Sembunyikan form
+        formTambahPeserta.style.display = 'none'; 
         return;
     }
 
-    // Tampilkan form jika kegiatan dipilih
     formTambahPeserta.style.display = 'flex';
     tbodyLaporan.innerHTML = '<tr><td colspan="5" style="text-align: center;">Memuat data...</td></tr>';
 
@@ -67,7 +55,7 @@ async function loadLaporanKehadiran(kegiatan_id) {
         if (!response.ok) throw new Error('Gagal mengambil laporan kehadiran');
 
         const laporanList = await response.json();
-        tbodyLaporan.innerHTML = ''; // Kosongkan tabel
+        tbodyLaporan.innerHTML = ''; 
 
         if (laporanList.length === 0) {
             tbodyLaporan.innerHTML = '<tr><td colspan="5" style="text-align: center;">Belum ada peserta terdaftar di kegiatan ini.</td></tr>';
@@ -78,7 +66,6 @@ async function loadLaporanKehadiran(kegiatan_id) {
             const tr = document.createElement('tr');
             const statusClass = laporan.status === 'Hadir' ? 'status-hadir' : 'status-belum';
 
-            // (Perhatikan tambahan <td> untuk Aksi)
             tr.innerHTML = `
                 <td>${laporan.nama}</td>
                 <td>${laporan.nim}</td>
@@ -101,9 +88,6 @@ async function loadLaporanKehadiran(kegiatan_id) {
     }
 }
 
-/**
- * Fungsi untuk memuat semua mahasiswa ke dropdown "Pilih Mahasiswa"
- */
 async function loadMahasiswaDropdown() {
     try {
         const response = await fetch(`${API_URL}/mahasiswa`);
@@ -111,7 +95,7 @@ async function loadMahasiswaDropdown() {
 
         const mahasiswaList = await response.json();
 
-        selectMahasiswa.innerHTML = '<option value="">-- Pilih Mahasiswa --</option>'; // Opsi default
+        selectMahasiswa.innerHTML = '<option value="">-- Pilih Mahasiswa --</option>'; 
 
         mahasiswaList.forEach(mhs => {
             const option = document.createElement('option');
@@ -126,9 +110,6 @@ async function loadMahasiswaDropdown() {
     }
 }
 
-/**
- * Fungsi untuk menghapus peserta dari kegiatan
- */
 async function removePeserta(kegiatan_id, mahasiswa_id) {
     if (!confirm('Anda yakin ingin menghapus peserta ini dari kegiatan?')) {
         return;
@@ -145,7 +126,7 @@ async function removePeserta(kegiatan_id, mahasiswa_id) {
         }
 
         alert('Peserta berhasil dihapus.');
-        loadLaporanKehadiran(kegiatan_id); // Muat ulang laporan
+        loadLaporanKehadiran(kegiatan_id); 
 
     } catch (error) {
         console.error(error);
@@ -153,18 +134,13 @@ async function removePeserta(kegiatan_id, mahasiswa_id) {
     }
 }
 
-// --- Event Listeners ---
-
-// Panggil fungsi saat halaman pertama kali dibuka
 document.addEventListener('DOMContentLoaded', loadKegiatanDropdown);
 
-// Panggil fungsi saat pilihan di dropdown berubah
 selectKegiatan.addEventListener('change', () => {
     const selectedKegiatanId = selectKegiatan.value;
     loadLaporanKehadiran(selectedKegiatanId);
 });
 
-// Panggil fungsi saat tombol refresh diklik
 btnRefresh.addEventListener('click', () => {
     const selectedKegiatanId = selectKegiatan.value;
     loadLaporanKehadiran(selectedKegiatanId);
@@ -172,7 +148,6 @@ btnRefresh.addEventListener('click', () => {
 
 document.addEventListener('DOMContentLoaded', loadMahasiswaDropdown);
 
-// Event listener untuk tombol "Tambahkan Peserta"
 btnTambahPeserta.addEventListener('click', async () => {
     const kegiatan_id = selectKegiatan.value;
     const mahasiswa_id = selectMahasiswa.value;
@@ -195,11 +170,11 @@ btnTambahPeserta.addEventListener('click', async () => {
         }
 
         alert('Peserta berhasil ditambahkan ke kegiatan!');
-        selectMahasiswa.value = ''; // Reset dropdown mahasiswa
-        loadLaporanKehadiran(kegiatan_id); // Muat ulang laporan
+        selectMahasiswa.value = ''; 
+        loadLaporanKehadiran(kegiatan_id); 
 
     } catch (error) {
         console.error(error);
-        alert(error.message); // Akan menampilkan 'Mahasiswa sudah terdaftar' jika duplikat
+        alert(error.message); 
     }
 });

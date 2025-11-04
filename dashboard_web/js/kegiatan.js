@@ -1,16 +1,10 @@
-// URL API Backend Anda
 const API_URL = 'http://localhost:3000/api';
 
-// Ambil elemen dari HTML
 const formBuatKegiatan = document.getElementById('form-buat-kegiatan');
 const inputNamaKegiatan = document.getElementById('nama_kegiatan');
 const inputDeskripsi = document.getElementById('deskripsi');
 const tbodyKegiatan = document.getElementById('body-tabel-kegiatan');
 
-/**
- * Fungsi untuk memuat semua kegiatan dari API
- * dan menampilkannya di tabel
- */
 async function loadKegiatan() {
     try {
         const response = await fetch(`${API_URL}/kegiatan`);
@@ -18,10 +12,8 @@ async function loadKegiatan() {
         
         const kegiatanList = await response.json();
 
-        // Kosongkan tabel sebelum diisi
         tbodyKegiatan.innerHTML = '';
 
-        // Loop setiap data kegiatan dan buat baris tabel
         kegiatanList.forEach(kegiatan => {
             const tr = document.createElement('tr');
             
@@ -46,11 +38,8 @@ async function loadKegiatan() {
     }
 }
 
-/**
- * Event listener untuk form "Buat Kegiatan Baru"
- */
 formBuatKegiatan.addEventListener('submit', async (e) => {
-    e.preventDefault(); // Mencegah form refresh halaman
+    e.preventDefault(); 
 
     const nama = inputNamaKegiatan.value;
     const deskripsi = inputDeskripsi.value;
@@ -70,8 +59,8 @@ formBuatKegiatan.addEventListener('submit', async (e) => {
         if (!response.ok) throw new Error('Gagal membuat kegiatan baru');
 
         alert('Kegiatan baru berhasil dibuat!');
-        formBuatKegiatan.reset(); // Kosongkan form
-        loadKegiatan(); // Muat ulang daftar kegiatan
+        formBuatKegiatan.reset(); 
+        loadKegiatan(); 
 
     } catch (error) {
         console.error(error);
@@ -79,9 +68,6 @@ formBuatKegiatan.addEventListener('submit', async (e) => {
     }
 });
 
-/**
- * Fungsi yang dipanggil saat tombol "Set Aktif" diklik
- */
 async function setAktif(kegiatan_id) {
     if (!confirm('Anda yakin ingin mengaktifkan kegiatan ini? (Kegiatan lain akan non-aktif)')) {
         return;
@@ -95,7 +81,7 @@ async function setAktif(kegiatan_id) {
         if (!response.ok) throw new Error('Gagal mengaktifkan kegiatan');
 
         alert('Kegiatan berhasil diaktifkan!');
-        loadKegiatan(); // Muat ulang daftar kegiatan untuk update status
+        loadKegiatan(); 
 
     } catch (error) {
         console.error(error);
@@ -103,5 +89,4 @@ async function setAktif(kegiatan_id) {
     }
 }
 
-// Panggil fungsi loadKegiatan() saat halaman pertama kali dibuka
 document.addEventListener('DOMContentLoaded', loadKegiatan);
