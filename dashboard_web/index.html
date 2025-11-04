@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale-1.0" />
+    <title>Laporan Kehadiran</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <nav>
+      <a href="index.html" class="active">Laporan Kehadiran</a>
+      <a href="kegiatan.html">Manajemen Kegiatan</a>
+      <a href="mahasiswa.html">Manajemen Pengurus</a>
+    </nav>
+
+    <main>
+      <h1>Laporan Kehadiran</h1>
+
+      <div class="card">
+        <div class="filter-container">
+          <label for="pilih-kegiatan">Pilih Kegiatan:</label>
+          <select id="pilih-kegiatan">
+            <option value="">-- Memuat Kegiatan --</option>
+          </select>
+          <div
+            id="form-tambah-peserta"
+            class="form-peserta"
+            style="display: none"
+          >
+            <select id="pilih-mahasiswa">
+              <option value="">-- Pilih Mahasiswa --</option>
+            </select>
+            <button id="btn-tambah-peserta">Tambahkan Peserta</button>
+          </div>
+          <button id="btn-refresh">Refresh</button>
+        </div>
+
+        <table id="tabel-laporan">
+          <thead>
+            <tr>
+              <th>Nama Pengurus</th>
+              <th>NIM</th>
+              <th>Status</th>
+              <th>Waktu Absen</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="body-tabel-laporan">
+            <tr>
+              <td colspan="4" style="text-align: center">
+                Pilih kegiatan untuk melihat laporan.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+
+    <script src="js/app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manajemen Pengurus</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav>
+        <a href="index.html">Laporan Kehadiran</a>
+        <a href="kegiatan.html">Manajemen Kegiatan</a>
+        <a href="mahasiswa.html" class="active">Manajemen Pengurus</a>
+    </nav>
+
+    <main>
+        <h1>Manajemen Pengurus</h1>
+
+        <div class="card">
+            <h2>Daftarkan Pengurus Baru</h2>
+            <form id="form-buat-mahasiswa">
+                <label for="nama">Nama Pengurus:</label>
+                <input type="text" id="nama" required>
+                
+                <label for="nim">NIM (Nomor Induk):</label>
+                <input type_text" id="nim" required>
+
+                <label for="rfid_uid">UID Kartu RFID:</label>
+                <input type="text" id="rfid_uid" placeholder="Contoh: AA-BB-CC-01" required>
+                
+                <button type="submit">Daftarkan</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h2>Daftar Pengurus Terdaftar</h2>
+            <table id="tabel-mahasiswa">
+                <thead>
+                    <tr>
+                        <th>Nama</th>
+                        <th>NIM</th>
+                        <th>UID RFID</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody id="body-tabel-mahasiswa">
+                    </tbody>
+            </table>
+        </div>
+    </main>
+
+    <script src="js/mahasiswa.js"></script>
+</body>
+</html>

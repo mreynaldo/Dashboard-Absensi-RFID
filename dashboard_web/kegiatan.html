@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manajemen Kegiatan</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav>
+        <a href="index.html">Laporan Kehadiran</a>
+        <a href="kegiatan.html" class="active">Manajemen Kegiatan</a>
+        <a href="mahasiswa.html">Manajemen Pengurus</a>
+    </nav>
+
+    <main>
+        <h1>Manajemen Kegiatan</h1>
+
+        <div class="card">
+            <h2>Buat Kegiatan Baru</h2>
+            <form id="form-buat-kegiatan">
+                <label for="nama_kegiatan">Nama Kegiatan:</label>
+                <input type="text" id="nama_kegiatan" required>
+                
+                <label for="deskripsi">Deskripsi:</label>
+                <textarea id="deskripsi"></textarea>
+                
+                <button type="submit">Buat Kegiatan</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h2>Daftar Kegiatan</h2>
+            <table id="tabel-kegiatan">
+                <thead>
+                    <tr>
+                        <th>Nama Kegiatan</th>
+                        <th>Status</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody id="body-tabel-kegiatan">
+                    </tbody>
+            </table>
+        </div>
+    </main>
+
+    <script src="js/kegiatan.js"></script>
+</body>
+</html>
