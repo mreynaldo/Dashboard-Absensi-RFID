@@ -1,2 +1,3 @@
 **/node_modules
 /absensi_api/.env
+db_absensi_rfid.sql

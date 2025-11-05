@@ -25,8 +25,8 @@ async function loadKegiatan() {
                     </span>
                 </td>
                 <td class="aksi">
-                    <button onclick="setAktif(${kegiatan.id})">Set Aktif</button>
-                    <a href="index.html?kegiatan_id=${kegiatan.id}" class="button">Lihat Laporan</a>
+<button class="btn btn-success btn-icon" title="Jadikan Aktif" onclick="setAktif(${kegiatan.id})"><i class="bi bi-check-circle"></i></button>
+                    <a href="index.html?kegiatan_id=${kegiatan.id}" class="btn btn-info btn-icon" title="Lihat Laporan"><i class="bi bi-eye"></i></a>
                 </td>
             `;
             tbodyKegiatan.appendChild(tr);

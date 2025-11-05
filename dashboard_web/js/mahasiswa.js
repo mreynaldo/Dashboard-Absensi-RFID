@@ -1,13 +1,16 @@
 const API_URL = 'http://localhost:3000/api';
 
+// Form elements
 const formBuatMahasiswa = document.getElementById('form-buat-mahasiswa');
 const inputNama = document.getElementById('nama');
 const inputNim = document.getElementById('nim');
 const inputRfidUid = document.getElementById('rfid_uid');
 const tbodyMahasiswa = document.getElementById('body-tabel-mahasiswa');
-const editModal = document.getElementById('edit-modal');
+
+// Modal elements
+const editModalEl = document.getElementById('edit-modal');
+const editModal = new bootstrap.Modal(editModalEl);
 const editForm = document.getElementById('form-edit-mahasiswa');
-const editModalCloseBtn = document.getElementById('modal-close-btn');
 const editId = document.getElementById('edit-mhs-id');
 const editNama = document.getElementById('edit-nama');
 const editNim = document.getElementById('edit-nim');
@@ -29,8 +32,8 @@ async function loadMahasiswa() {
                 <td>${mhs.nim}</td>
                 <td>${mhs.rfid_uid}</td>
                 <td class="aksi">
-                    <button class="btn-edit" onclick="openEditModal(${mhs.id})">Edit</button>
-                    <button class="btn-delete" onclick="deleteMahasiswa(${mhs.id})">Hapus</button>
+                    <button class="btn btn-warning btn-icon" title="Edit" onclick="openEditModal(${mhs.id})"><i class="bi bi-pencil-square"></i></button>
+                    <button class="btn btn-danger btn-icon" title="Hapus" onclick="deleteMahasiswa(${mhs.id})"><i class="bi bi-trash"></i></button>
                 </td>
             `;
             tbodyMahasiswa.appendChild(tr);
@@ -64,7 +67,7 @@ formBuatMahasiswa.addEventListener('submit', async (e) => {
         }
 
         alert('Mahasiswa baru berhasil didaftarkan!');
-        formBuatMahasiswa.reset(); // Kosongkan form
+        formBuatMahasiswa.reset();
         loadMahasiswa(); 
 
     } catch (error) {
@@ -89,7 +92,7 @@ async function deleteMahasiswa(mahasiswa_id) {
         }
 
         alert('Mahasiswa berhasil dihapus.');
-        loadMahasiswa(); // Muat ulang daftar
+        loadMahasiswa();
 
     } catch (error) {
         console.error(error);
@@ -109,16 +112,12 @@ async function openEditModal(mahasiswa_id) {
         editNim.value = mhs.nim;
         editRfidUid.value = mhs.rfid_uid;
 
-        editModal.style.display = 'flex';
+        editModal.show();
 
     } catch (error) {
         console.error(error);
         alert(error.message);
     }
-}
-
-function closeEditModal() {
-    editModal.style.display = 'none';
 }
 
 async function handleEditSubmit(e) {
@@ -144,7 +143,7 @@ async function handleEditSubmit(e) {
         }
 
         alert('Data mahasiswa berhasil diupdate!');
-        closeEditModal();
+        editModal.hide();
         loadMahasiswa();
 
     } catch (error) {
@@ -153,14 +152,6 @@ async function handleEditSubmit(e) {
     }
 }
 
+// Initial load and event listeners
 document.addEventListener('DOMContentLoaded', loadMahasiswa);
-
-editModalCloseBtn.addEventListener('click', closeEditModal);
-
 editForm.addEventListener('submit', handleEditSubmit);
-
-window.addEventListener('click', (e) => {
-    if (e.target == editModal) {
-        closeEditModal();
-    }
-});
